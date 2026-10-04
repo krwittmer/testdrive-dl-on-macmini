@@ -1,0 +1,106 @@
+# Apple Silicon (macOS arm64) Conda environment
+#
+# Reconstructed from the Windows environment export for "testdrive-dl-mm".
+# This file intentionally omits:
+#   - Windows-only packages (pywin32, ucrt, vc runtimes, win_inet_pton, etc.)
+#   - platform-specific Conda build strings
+#   - low-level/transitive dependencies that Conda or pip should resolve
+#   - the Windows-specific "prefix:" entry
+#   - CUDA/MKL-specific implementation packages
+#
+# Goal: preserve the meaningful top-level Python, ML, data-science,
+# notebook, visualization, NLP, and API tooling while allowing Conda/pip
+# to resolve packages appropriate for macOS on Apple Silicon.
+
+name: testdrive-dl-mm
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  # -------------------------------------------------------------------------
+  # Python runtime / packaging
+  # -------------------------------------------------------------------------
+  - python=3.11
+  - pip
+  - setuptools
+  - wheel
+
+  # -------------------------------------------------------------------------
+  # Core scientific computing / data analysis
+  # -------------------------------------------------------------------------
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
+  - scikit-image
+  - statsmodels
+
+  # -------------------------------------------------------------------------
+  # Visualization
+  # -------------------------------------------------------------------------
+  - matplotlib
+  - seaborn
+  - plotly
+  - pillow
+  - imageio
+
+  # -------------------------------------------------------------------------
+  # Jupyter / interactive Python
+  # -------------------------------------------------------------------------
+  - ipython
+  - ipykernel
+  - ipywidgets
+
+  # -------------------------------------------------------------------------
+  # Machine learning / deep learning
+  #
+  # Do not pin Windows CPU/MKL build strings. Conda will select packages
+  # compatible with osx-arm64.
+  # -------------------------------------------------------------------------
+  - pytorch
+  - torchvision
+  - torchaudio
+  - jax
+  - keras
+  - xgboost
+
+  # -------------------------------------------------------------------------
+  # NLP / Hugging Face
+  # -------------------------------------------------------------------------
+  - gensim
+  - nltk
+  - transformers
+  - huggingface_hub
+  - tokenizers
+  - safetensors
+
+  # -------------------------------------------------------------------------
+  # General application / API utilities present in the source environment
+  # -------------------------------------------------------------------------
+  - openai
+  - pydantic
+  - python-dotenv
+  - pyyaml
+  - requests
+  - tqdm
+  - rich
+  - typer
+
+  # -------------------------------------------------------------------------
+  # pip-installed top-level packages from the original environment
+  #
+  # TensorFlow was installed via pip in the Windows source environment.
+  # Keeping it here avoids forcing Conda to solve a platform-specific
+  # TensorFlow stack. pip will resolve the macOS/arm64-compatible wheel
+  # available for Python 3.11.
+  #
+  # datasets, wandb and TensorFlow are retained as user-facing packages.
+  # scipy and scikit-image were moved to Conda above because they are core
+  # scientific packages and Conda can resolve native Apple Silicon builds.
+  # -------------------------------------------------------------------------
+  - pip:
+      - datasets
+      - tensorflow
+      - wandb
