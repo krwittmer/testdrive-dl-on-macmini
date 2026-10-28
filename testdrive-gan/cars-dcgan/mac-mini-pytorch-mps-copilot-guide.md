@@ -364,3 +364,11 @@ Adapt diagnostics to nested inputs and outputs. Device placement confirms where 
 8. [PyTorch MPS synchronization, memory, and profiling APIs](https://docs.pytorch.org/docs/stable/mps.html)
 
 Where examples contain illustrative names such as `ExistingModel`, `existing_batch_size`, or `benchmark_inputs`, adapt them to the notebook's real objects. They are not additional dependencies or executable cells to insert verbatim.
+
+## Suggested order of fixes
+
+1. Set both learning rates to 2e-4, add the paper's weight initialization, and fix the discriminator (no BatchNorm on the first layer, 4×4 kernels, widths 64→512, a conv head).
+2. Add monitoring: fixed noise, an image grid, `D(x)` and `D(G(z))` logging, and a seed.
+3. Fix the data: resize plus center-crop, a horizontal flip, `.convert('RGB')`, and cache the resized tensors.
+4. Reuse one fake batch per step.
+5. Optional: try the LSGAN loss, spectral norm, or DiffAugment.
