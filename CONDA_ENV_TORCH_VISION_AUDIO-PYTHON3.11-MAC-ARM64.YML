@@ -65,6 +65,7 @@ dependencies:
   - jax
   - keras
   - xgboost
+  - deeptrack
 
   # -------------------------------------------------------------------------
   # NLP / Hugging Face
